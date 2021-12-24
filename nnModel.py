@@ -7,7 +7,6 @@ from torchvision.transforms import ToTensor
 class Model(nn.Module):
     def __init__(self):
         super(Model, self).__init__()
-        
         self.cnn1 = nn.Conv2d(1, 16, 5, padding=2) 
         self.cnn2 = nn.Conv2d(16, 32, 5, padding=2) 
         self.maxpool = nn.MaxPool2d(kernel_size=2)
@@ -27,10 +26,8 @@ def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
     for batch, (inputs, labels) in enumerate(dataloader):
         inputs, labels = inputs.to(device), labels.to(device)
-        
         pred = model(inputs)
         loss = loss_fn(pred, labels)
-        
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -69,18 +66,15 @@ if __name__ == '__main__':
     )
 
     batch_size = 128
-
     train_dataloader = DataLoader(train_data, batch_size=batch_size)
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
-
     device = "cuda" if torch.cuda.is_available() else "cpu"
-
     model = Model().to(device)
 
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-
     epochs = 10
+    
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
         train(train_dataloader, model, loss_fn, optimizer)
@@ -88,5 +82,3 @@ if __name__ == '__main__':
     print("Done!")
 
     torch.save(model, 'model.pt')
-
-

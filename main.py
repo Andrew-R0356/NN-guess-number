@@ -16,7 +16,6 @@ class Space():
         self.len = row * col
         self.canvas = canvas
         self.pixels = [0 for _ in range(28 * 28)]
-        
         self.create_space()
         
     def create_space(self):
@@ -93,17 +92,3 @@ guess_btn = tk.Button(frame, text='Guess',
 guess_btn.pack(side=tk.RIGHT)
 
 window.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
